@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COVID-19 Data Visualization</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>COVID-19 Data Visualization</h1>
+
+      <h2>Correlation Heatmap</h2>
+      <img
+        src="{{ url_for('static', filename='images/heatmap.png') }}"
+        alt="Correlation Heatmap"
+      />
+
+      <h2>COVID-19 Positive Cases Distribution</h2>
+      <img
+        src="{{ url_for('static', filename='images/pie_chart.png') }}"
+        alt="COVID-19 Positive Cases Distribution"
+      />
+
+      <h2>Symptom Count in COVID-19 Positive Cases</h2>
+      <img
+        src="{{ url_for('static', filename='images/symptom_count_bar.png') }}"
+        alt="Symptom Count in COVID-19 Positive Cases"
+      />
+
+      <h2>Symptoms Count in COVID-19 Positive Cases (Countplot)</h2>
+      <img
+        src="{{ url_for('static', filename='images/symptom_count_countplot.png') }}"
+        alt="Symptoms Count in COVID-19 Positive Cases"
+      />
+
+      <h2>Symptom Comparison: COVID-19 Positive vs Negative Cases</h2>
+      <img
+        src="{{ url_for('static', filename='images/radar_chart.png') }}"
+        alt="Symptom Comparison: COVID-19 Positive vs Negative Cases"
+      />
+    </div>
+  </body>
+</html>
