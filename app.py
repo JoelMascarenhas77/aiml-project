@@ -5,7 +5,7 @@ import numpy as np
 app = Flask(__name__)
 
 # Load the pre-trained SVM model
-with open('models\svm_model.pkl', 'rb') as model_file:
+with open('models/svm_model.pkl', 'rb') as model_file:
     svm_model = pickle.load(model_file)
 
 # Define the route for rendering the input form (UI)
@@ -20,6 +20,7 @@ def predict_page():
 # Define the route for prediction based on form input
 @app.route('/predict', methods=['POST'])
 def predict():
+    value=''
     # Get the form data
     form_data = request.form
 
@@ -43,10 +44,7 @@ def predict():
         int(form_data['Attended Large Gathering']),
         int(form_data['Visited Public Exposed Places']),
         int(form_data['Family working in Public Exposed Places']),
-        int(form_data['Wearing Masks']),
-        int(form_data['Sanitization from Market'])
     ]
-
     # Convert features to a numpy array
     features_array = np.array([features])
 
@@ -57,9 +55,16 @@ def predict():
     prediction = svm_model.predict(features)
     probability = svm_model.predict_proba(features)
 
+    probability = probability.tolist()
+
+    if(prediction[0]==1):
+       value="postitive" 
+    else:
+        value='negitive' 
+
     # Get the probability of the positive class (COVID-19 positive)
 
-    return render_template('result.html', prediction=prediction, probability=probability)
+    return render_template('predict.html', prediction=value)
 
 # Run the Flask app
 if __name__ == '__main__':

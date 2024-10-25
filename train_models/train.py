@@ -7,6 +7,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score, classification_report
 import pickle
+from sklearn.preprocessing import StandardScaler
+
 
 # Data
 data = pd.read_csv("Covid_Dataset.csv")
@@ -31,10 +33,14 @@ y_pred_log = log_reg.predict(X_test)
 print("Logistic Regression Accuracy:\n", accuracy_score(y_test, y_pred_log))
 print("Classification Report:\n", classification_report(y_test, y_pred_log))
 
+
 # Support Vector Machine (SVM)
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test) 
 svm = SVC(probability=True)
-svm.fit(X_train, y_train)
-y_pred_svm = svm.predict(X_test)
+svm.fit(X_train_scaled, y_train)  # Use scaled data
+y_pred_svm = svm.predict(X_test_scaled)  # Use scaled data
 print("SVM Accuracy:\n", accuracy_score(y_test, y_pred_svm))
 print("Classification Report:\n", classification_report(y_test, y_pred_svm))
 
@@ -52,20 +58,19 @@ y_pred_knn = knn.predict(X_test)
 print("KNN Accuracy:\n", accuracy_score(y_test, y_pred_knn))
 print("Classification Report:\n", classification_report(y_test, y_pred_knn))
 
-
-
-# Save SVM model
+# Save models
 with open('models/svm_model.pkl', 'wb') as f:
     pickle.dump(svm, f)
 
-# Save KNN model
 with open('models/knn_model.pkl', 'wb') as f:
     pickle.dump(knn, f)
 
-# Save Random Forest model
 with open('models/rf_model.pkl', 'wb') as f:
     pickle.dump(rf, f)
 
-# Save Logistic Regression model
 with open('models/log_reg_model.pkl', 'wb') as f:
     pickle.dump(log_reg, f)
+
+# Save the scaler for future use
+with open('models/scaler.pkl', 'wb') as f:
+    pickle.dump(scaler, f)
