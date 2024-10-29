@@ -6,12 +6,13 @@
     <title>COVID-19 Prediction</title>
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='css/style.css') }}"
+      href="{{ url_for('static', filename='style.css') }}"
     />
   </head>
   <body>
     <div class="container">
       <h1>COVID-19 Prediction</h1>
+      <h3>Enter Yes:1 or No:0</h3>
       <form action="/predict" method="POST">
         <label>Breathing Problem:</label>
         <input
@@ -21,7 +22,6 @@
           max="1"
           required
         />
-
         <label>Fever:</label>
         <input type="number" name="Fever" min="0" max="1" required />
 
@@ -102,26 +102,23 @@
           max="1"
           required
         />
-
-        <label>Wearing Masks:</label>
-        <input type="number" name="Wearing Masks" min="0" max="1" required />
-
-        <label>Sanitization from Market:</label>
-        <input
-          type="number"
-          name="Sanitization from Market"
-          min="0"
-          max="1"
-          required
-        />
-
         <button type="submit">Predict</button>
       </form>
 
-      {% if prediction_text %}
-      <div class="result">{{ prediction_text }}</div>
-      <h1>Prediction Result</h1>
-      <p>COVID-19 Status: {{ prediction }}</p>
+      {% if results %}
+      <div class="result">
+        <h1>Prediction Results</h1>
+        <ul>
+          {% for model, outcome in results.items() %}
+          <li>
+            <strong>{{ model }}:</strong> {{ outcome.prediction | capitalize }}
+            <br />
+            <em>Probability of Positive:</em> {{ outcome.probability | round(2)
+            }}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
       {% endif %}
     </div>
   </body>

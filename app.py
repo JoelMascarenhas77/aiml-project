@@ -1,11 +1,21 @@
 from flask import Flask, request, render_template, jsonify
 import pickle
 import numpy as np
+
 # Initialize Flask app
 app = Flask(__name__)
 
-# Load the pre-trained SVM model
-with open('models\svm_model.pkl', 'rb') as model_file:
+# Load the pre-trained models
+with open('models/knn_model.pkl', 'rb') as model_file:
+    knn_model = pickle.load(model_file)
+
+with open('models/log_reg_model.pkl', 'rb') as model_file:
+    log_reg_model = pickle.load(model_file)
+
+with open('models/rf_model.pkl', 'rb') as model_file:
+    rf_model = pickle.load(model_file)
+
+with open('models/svm_model.pkl', 'rb') as model_file:
     svm_model = pickle.load(model_file)
 
 # Define the route for rendering the input form (UI)
@@ -43,23 +53,33 @@ def predict():
         int(form_data['Attended Large Gathering']),
         int(form_data['Visited Public Exposed Places']),
         int(form_data['Family working in Public Exposed Places']),
-        int(form_data['Wearing Masks']),
-        int(form_data['Sanitization from Market'])
     ]
-
-    # Convert features to a numpy array
-    features_array = np.array([features])
-
-    # Make a prediction using the SVM model
     features = [features]
 
-    # Make the prediction
-    prediction = svm_model.predict(features)
-    probability = svm_model.predict_proba(features)
+    # Make predictions and calculate probabilities for each model
+    results = {}
 
-    # Get the probability of the positive class (COVID-19 positive)
+    # Logistic Regression
+    log_reg_pred = log_reg_model.predict(features)[0]
+    log_reg_proba = log_reg_model.predict_proba(features)[0][1]  # Probability of positive class
+    results['Logistic Regression'] = {'prediction': 'positive' if log_reg_pred == 1 else 'negative', 'probability': log_reg_proba}
 
-    return render_template('result.html', prediction=prediction, probability=probability)
+    # SVM
+    svm_pred = svm_model.predict(features)[0]
+    svm_proba = svm_model.predict_proba(features)[0][1]
+    results['SVM'] = {'prediction': 'positive' if svm_pred == 1 else 'negative', 'probability': svm_proba}
+
+    # Random Forest
+    rf_pred = rf_model.predict(features)[0]
+    rf_proba = rf_model.predict_proba(features)[0][1]
+    results['Random Forest'] = {'prediction': 'positive' if rf_pred == 1 else 'negative', 'probability': rf_proba}
+
+    # K-Nearest Neighbors
+    knn_pred = knn_model.predict(features)[0]
+    knn_proba = knn_model.predict_proba(features)[0][1]
+    results['K-Nearest Neighbors'] = {'prediction': 'positive' if knn_pred == 1 else 'negative', 'probability': knn_proba}
+
+    return render_template('predict.html', results=results)
 
 # Run the Flask app
 if __name__ == '__main__':

@@ -3,45 +3,108 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>COVID-19 Data Visualization</title>
+    <title>COVID-19 Prediction</title>
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='css/style.css') }}"
+      href="{{ url_for('static', filename='style.css') }}"
     />
   </head>
   <body>
     <div class="container">
-      <h1>COVID-19 Data Visualization</h1>
+      <h1>COVID-19 Prediction</h1>
+      <form action="/predict" method="POST">
+        <label>Breathing Problem:</label>
+        <input
+          type="number"
+          name="Breathing Problem"
+          min="0"
+          max="1"
+          required
+        />
 
-      <h2>Correlation Heatmap</h2>
-      <img
-        src="{{ url_for('static', filename='images/heatmap.png') }}"
-        alt="Correlation Heatmap"
-      />
+        <label>Fever:</label>
+        <input type="number" name="Fever" min="0" max="1" required />
 
-      <h2>COVID-19 Positive Cases Distribution</h2>
-      <img
-        src="{{ url_for('static', filename='images/pie_chart.png') }}"
-        alt="COVID-19 Positive Cases Distribution"
-      />
+        <label>Dry Cough:</label>
+        <input type="number" name="Dry Cough" min="0" max="1" required />
 
-      <h2>Symptom Count in COVID-19 Positive Cases</h2>
-      <img
-        src="{{ url_for('static', filename='images/symptom_count_bar.png') }}"
-        alt="Symptom Count in COVID-19 Positive Cases"
-      />
+        <label>Sore throat:</label>
+        <input type="number" name="Sore throat" min="0" max="1" required />
 
-      <h2>Symptoms Count in COVID-19 Positive Cases (Countplot)</h2>
-      <img
-        src="{{ url_for('static', filename='images/symptom_count_countplot.png') }}"
-        alt="Symptoms Count in COVID-19 Positive Cases"
-      />
+        <label>Running Nose:</label>
+        <input type="number" name="Running Nose" min="0" max="1" required />
 
-      <h2>Symptom Comparison: COVID-19 Positive vs Negative Cases</h2>
-      <img
-        src="{{ url_for('static', filename='images/radar_chart.png') }}"
-        alt="Symptom Comparison: COVID-19 Positive vs Negative Cases"
-      />
-    </div>
+        <label>Asthma:</label>
+        <input type="number" name="Asthma" min="0" max="1" required />
+
+        <label>Chronic Lung Disease:</label>
+        <input
+          type="number"
+          name="Chronic Lung Disease"
+          min="0"
+          max="1"
+          required
+        />
+
+        <label>Headache:</label>
+        <input type="number" name="Headache" min="0" max="1" required />
+
+        <label>Heart Disease:</label>
+        <input type="number" name="Heart Disease" min="0" max="1" required />
+
+        <label>Diabetes:</label>
+        <input type="number" name="Diabetes" min="0" max="1" required />
+
+        <label>Hyper Tension:</label>
+        <input type="number" name="Hyper Tension" min="0" max="1" required />
+
+        <label>Fatigue:</label>
+        <input type="number" name="Fatigue" min="0" max="1" required />
+
+        <label>Gastrointestinal:</label>
+        <input type="number" name="Gastrointestinal" min="0" max="1" required />
+
+        <label>Abroad travel:</label>
+        <input type="number" name="Abroad travel" min="0" max="1" required />
+
+        <label>Contact with COVID Patient:</label>
+        <input
+          type="number"
+          name="Contact with COVID Patient"
+          min="0"
+          max="1"
+          required
+        />
+
+        <label>Attended Large Gathering:</label>
+        <input
+          type="number"
+          name="Attended Large Gathering"
+          min="0"
+          max="1"
+          required
+        />
+
+        <label>Visited Public Exposed Places:</label>
+        <input
+          type="number"
+          name="Visited Public Exposed Places"
+          min="0"
+          max="1"
+          required
+        />
+
+        <label>Family working in Public Exposed Places:</label>
+        <input
+          type="number"
+          name="Family working in Public Exposed Places"
+          min="0"
+          max="1"
+          required
+        />
+        <button type="submit">Predict</button>
+      </form>
+
+
   </body>
 </html>
