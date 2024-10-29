@@ -5,7 +5,6 @@ import numpy as np
 # Initialize Flask app
 app = Flask(__name__)
 
-<<<<<<< HEAD
 # Load the pre-trained models
 with open('models/knn_model.pkl', 'rb') as model_file:
     knn_model = pickle.load(model_file)
@@ -16,9 +15,6 @@ with open('models/log_reg_model.pkl', 'rb') as model_file:
 with open('models/rf_model.pkl', 'rb') as model_file:
     rf_model = pickle.load(model_file)
 
-=======
-# Load the pre-trained SVM model
->>>>>>> f93e2914c1b2854e5b684d1092b2ed7cd6b52a40
 with open('models/svm_model.pkl', 'rb') as model_file:
     svm_model = pickle.load(model_file)
 
