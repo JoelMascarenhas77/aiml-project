@@ -55,19 +55,11 @@ def predict():
         int(form_data['Visited Public Exposed Places']),
         int(form_data['Family working in Public Exposed Places']),
     ]
-<<<<<<< HEAD
-=======
-    # Convert features to a numpy array
-    features_array = np.array([features])
-
-    # Make a prediction using the SVM model
->>>>>>> f93e2914c1b2854e5b684d1092b2ed7cd6b52a40
     features = [features]
 
     # Make predictions and calculate probabilities for each model
     results = {}
 
-<<<<<<< HEAD
     # Logistic Regression
     log_reg_pred = log_reg_model.predict(features)[0]
     log_reg_proba = log_reg_model.predict_proba(features)[0][1]  # Probability of positive class
@@ -89,18 +81,6 @@ def predict():
     results['K-Nearest Neighbors'] = {'prediction': 'positive' if knn_pred == 1 else 'negative', 'probability': knn_proba}
 
     return render_template('predict.html', results=results)
-=======
-    probability = probability.tolist()
-
-    if(prediction[0]==1):
-       value="postitive" 
-    else:
-        value='negitive' 
-
-    # Get the probability of the positive class (COVID-19 positive)
-
-    return render_template('predict.html', prediction=value)
->>>>>>> f93e2914c1b2854e5b684d1092b2ed7cd6b52a40
 
 # Run the Flask app
 if __name__ == '__main__':
