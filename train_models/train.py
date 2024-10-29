@@ -7,6 +7,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score, classification_report
 import pickle
+from sklearn.preprocessing import StandardScaler
+
 
 # Data
 data = pd.read_csv("Covid_Dataset.csv")
@@ -33,11 +35,20 @@ print("Logistic Regression Accuracy:\n", accuracy_score(y_test, y_pred_log))
 print("Classification Report:\n", classification_report(y_test, y_pred_log))
 print("Prediction Probabilities (Logistic Regression):\n", y_pred_log_proba)
 
+
 # Support Vector Machine (SVM)
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test) 
 svm = SVC(probability=True)
+<<<<<<< HEAD
 svm.fit(X_train, y_train)
 y_pred_svm = svm.predict(X_test)
 y_pred_svm_proba = svm.predict_proba(X_test)
+=======
+svm.fit(X_train_scaled, y_train)  # Use scaled data
+y_pred_svm = svm.predict(X_test_scaled)  # Use scaled data
+>>>>>>> f93e2914c1b2854e5b684d1092b2ed7cd6b52a40
 print("SVM Accuracy:\n", accuracy_score(y_test, y_pred_svm))
 print("Classification Report:\n", classification_report(y_test, y_pred_svm))
 print("Prediction Probabilities (SVM):\n", y_pred_svm_proba)
@@ -58,20 +69,26 @@ y_pred_knn = knn.predict(X_test)
 y_pred_knn_proba = knn.predict_proba(X_test)
 print("KNN Accuracy:\n", accuracy_score(y_test, y_pred_knn))
 print("Classification Report:\n", classification_report(y_test, y_pred_knn))
+<<<<<<< HEAD
 print("Prediction Probabilities (KNN):\n", y_pred_knn_proba)
 
 # Save SVM model
+=======
+
+# Save models
+>>>>>>> f93e2914c1b2854e5b684d1092b2ed7cd6b52a40
 with open('models/svm_model.pkl', 'wb') as f:
     pickle.dump(svm, f)
 
-# Save KNN model
 with open('models/knn_model.pkl', 'wb') as f:
     pickle.dump(knn, f)
 
-# Save Random Forest model
 with open('models/rf_model.pkl', 'wb') as f:
     pickle.dump(rf, f)
 
-# Save Logistic Regression model
 with open('models/log_reg_model.pkl', 'wb') as f:
     pickle.dump(log_reg, f)
+
+# Save the scaler for future use
+with open('models/scaler.pkl', 'wb') as f:
+    pickle.dump(scaler, f)

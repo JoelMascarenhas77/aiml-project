@@ -102,6 +102,7 @@
           max="1"
           required
         />
+<<<<<<< HEAD
         <button type="submit">Predict</button>
       </form>
 
@@ -119,6 +120,17 @@
           {% endfor %}
         </ul>
       </div>
+=======
+
+
+        <button type="submit">Predict</button>
+      </form>
+
+      {% if prediction%}
+      <div class="result">{{ prediction }}</div>
+      <h1>Prediction Result</h1>
+      <p>COVID-19 Status: {{ probability }}</p>
+>>>>>>> f93e2914c1b2854e5b684d1092b2ed7cd6b52a40
       {% endif %}
     </div>
   </body>
